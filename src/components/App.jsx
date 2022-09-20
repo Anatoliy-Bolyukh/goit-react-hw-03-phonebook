@@ -17,6 +17,21 @@ class App extends Component {
     filter: '',
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
+  }
+
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('contacts'))
+    if (contacts) {
+      this.setState({
+        contacts
+      })
+    }
+  }
+
 
   handleSubmit = event => {
     event.preventDefault()
